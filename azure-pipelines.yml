@@ -9,7 +9,7 @@ resources:
 - repo: self
 
 variables:
-- group: anticorona-resource-group
+- group: anticorona
   # containerRegistry: 'event.azurecr.io'
   # containerRegistryDockerConnection: 'acr'
   # environment: 'aks.default'
