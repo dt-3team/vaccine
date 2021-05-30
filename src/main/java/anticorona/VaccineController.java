@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
             //예약 가능하면 예약수량 증가
             status = true;
             vaccine.setBookQty(vaccine.getBookQty() + 1);
+            vaccineRepository.save(vaccine);
         }
 
         return status;
