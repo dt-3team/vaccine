@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: vaccine
-          image: username/vaccine:latest
+          image: anticorona.azurecr.io/vaccine:latest
           ports:
             - containerPort: 8080
           readinessProbe:
