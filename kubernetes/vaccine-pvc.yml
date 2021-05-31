@@ -4,8 +4,8 @@ metadata:
   name: vaccine-disk
 spec:
   accessModes:
-  - ReadWriteOnce
-  storageClassName: default
+  - ReadWriteMany
+  storageClassName: azurefile
   resources:
     requests:
       storage: 1Gi
