@@ -5,7 +5,7 @@ metadata:
   labels:
     app: vaccine
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: vaccine
@@ -17,6 +17,9 @@ spec:
       containers:
         - name: vaccine
           image: anticorona.azurecr.io/vaccine:latest
+          volumeMounts:
+            - name: volume
+              mountPath: "/mnt/azure"
           ports:
             - containerPort: 8080
           readinessProbe:
@@ -35,3 +38,7 @@ spec:
             timeoutSeconds: 2
             periodSeconds: 5
             failureThreshold: 5
+      volumes:
+      - name: volume
+        persistentVolumeClaim:
+          claimName: azure-managed-disk
