@@ -13,26 +13,26 @@ public class PolicyHandler{
     @Autowired VaccineRepository vaccineRepository;
 
     @StreamListener(KafkaProcessor.INPUT)
-    public void wheneverBookCancelled_ModifyStock(@Payload BookCancelled bookCancelled){
+    public void wheneverBookingCancelled_ModifyStock(@Payload BookingCancelled bookingCancelled){
 
-        if(!bookCancelled.validate()) return;
+        if(!bookingCancelled.validate()) return;
 
-        System.out.println("\n\n##### listener ModifyStock : " + bookCancelled.toJson() + "\n\n");
+        System.out.println("\n\n##### listener ModifyStock : " + bookingCancelled.toJson() + "\n\n");
 
         // 예약수량 감소 //
-        Vaccine vaccine = vaccineRepository.findByVaccineId(bookCancelled.getVaccineId());
+        Vaccine vaccine = vaccineRepository.findByVaccineId(bookingCancelled.getVaccineId());
         vaccine.setBookQty(vaccine.getBookQty()-1);
         vaccineRepository.save(vaccine);
     }
     @StreamListener(KafkaProcessor.INPUT)
-    public void wheneverVcCompleted_ModifyStock(@Payload VcCompleted vcCompleted){
+    public void wheneverCompleted_ModifyStock(@Payload Completed completed){
 
-        if(!vcCompleted.validate()) return;
+        if(!completed.validate()) return;
 
-        System.out.println("\n\n##### listener ModifyStock : " + vcCompleted.toJson() + "\n\n");
+        System.out.println("\n\n##### listener ModifyStock : " + completed.toJson() + "\n\n");
 
         // 재고수량 & 예약수량 감소 //
-        Vaccine vaccine = vaccineRepository.findByVaccineId(vcCompleted.getVaccineId());
+        Vaccine vaccine = vaccineRepository.findByVaccineId(completed.getVaccineId());
         vaccine.setStock(vaccine.getStock()-1);
         vaccine.setBookQty(vaccine.getBookQty()-1);
         vaccineRepository.save(vaccine);

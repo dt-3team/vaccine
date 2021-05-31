@@ -1,6 +1,6 @@
 package anticorona;
 
-public class VcCompleted extends AbstractEvent {
+public class Completed extends AbstractEvent {
 
     private Long injectionId;
     private Long bookingId​;

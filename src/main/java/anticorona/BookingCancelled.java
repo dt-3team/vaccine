@@ -1,6 +1,6 @@
 package anticorona;
 
-public class BookCancelled extends AbstractEvent {
+public class BookingCancelled extends AbstractEvent {
 
     private Long bookingId;
     private Long vaccineId;

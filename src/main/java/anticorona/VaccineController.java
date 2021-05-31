@@ -14,11 +14,11 @@ import javax.servlet.http.HttpServletResponse;
      @Autowired
      VaccineRepository vaccineRepository;
 
-     @RequestMapping(value = "/vaccines/chkAndModifyStock",
-             method = RequestMethod.GET,
-             produces = "application/json;charset=UTF-8")
-     public boolean chkAndModifyStock(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("##### /vaccine/chkAndModifyStock  called #####");
+     @RequestMapping(value = "/vaccines/checkAndBookStock",
+        method = RequestMethod.GET,
+        produces = "application/json;charset=UTF-8")
+    public boolean checkAndBookStock(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("##### /vaccine/checkAndBookStock  called #####");
 
         boolean status = false;
 

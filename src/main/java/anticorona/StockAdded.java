@@ -1,13 +1,13 @@
 package anticorona;
 
-public class VcStockAdded extends AbstractEvent {
+public class StockAdded extends AbstractEvent {
 
     private Long vaccineId;
     private String vcName;
     private Long stock;
     private Long bookQty;
 
-    public VcStockAdded(){
+    public StockAdded(){
         super();
     }
 

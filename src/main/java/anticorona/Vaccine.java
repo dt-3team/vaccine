@@ -15,30 +15,37 @@ public class Vaccine {
     private String vcName;
     private Long stock;
     private Long bookQty;
-    //@Transient
-    private String command; //command 구분용 변수
+
+    @Transient
+    private Long previousStock;
+    @Transient
+    private Long previousBookQty;
+
+    @PostLoad
+    public void postLoad(){
+        //Set all previous fields to actual values
+        previousStock = stock;
+        previousBookQty = bookQty;
+    }
 
     @PostPersist
     public void onPostPersist(){
-        VcRegistered vcRegistered = new VcRegistered();
-        BeanUtils.copyProperties(this, vcRegistered);
-        vcRegistered.publishAfterCommit();
-
-
+        Registered registered = new Registered();
+        BeanUtils.copyProperties(this, registered);
+        registered.publishAfterCommit();
     }
 
     @PostUpdate
     public void onPostUpdate(){
-        if(this.getCommand() != null) {
-            if(this.getCommand().equals("addVcStock")) {
-                VcStockAdded vcStockAdded = new VcStockAdded();
-                BeanUtils.copyProperties(this, vcStockAdded);
-                vcStockAdded.publishAfterCommit();
-            } else if(this.getCommand().equals("chkAndModBookQty")){
-                StockModified stockModified = new StockModified();
-                BeanUtils.copyProperties(this, stockModified);
-                stockModified.publishAfterCommit();
-            }
+        if(previousStock < stock){
+            StockAdded stockAdded = new StockAdded();
+            BeanUtils.copyProperties(this, stockAdded);
+            stockAdded.publishAfterCommit();
+        }
+        if(previousBookQty != bookQty){
+            StockModified stockModified = new StockModified();
+            BeanUtils.copyProperties(this, stockModified);
+            stockModified.publishAfterCommit();
         }
     }
 
@@ -70,13 +77,6 @@ public class Vaccine {
 
     public void setBookQty(Long bookQty) {
         this.bookQty = bookQty;
-    }
-
-    public String getCommand() {
-        return command;
-    }
-    public void setCommand(String command) {
-        this.command = command;
     }
 
     /**
