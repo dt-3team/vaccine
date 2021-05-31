@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Date;
 
 @Entity
-@Table(name="Vaccine_table")
+@Table(name="Vaccine")
 public class Vaccine {
 
     @Id
