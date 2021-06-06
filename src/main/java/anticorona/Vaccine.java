@@ -37,11 +37,13 @@ public class Vaccine {
 
     @PostUpdate
     public void onPostUpdate(){
+        // 백신 수량 추가
         if(previousStock < stock){
             StockAdded stockAdded = new StockAdded();
             BeanUtils.copyProperties(this, stockAdded);
             stockAdded.publishAfterCommit();
         }
+        // 백신 예약 수량 변경
         if(previousBookQty != bookQty){
             StockModified stockModified = new StockModified();
             BeanUtils.copyProperties(this, stockModified);

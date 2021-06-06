@@ -1,6 +1,9 @@
 package anticorona;
 
 import anticorona.config.kafka.KafkaProcessor;
+
+import java.util.Optional;
+
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +23,13 @@ public class PolicyHandler{
         System.out.println("\n\n##### listener ModifyStock : " + bookingCancelled.toJson() + "\n\n");
 
         // 예약수량 감소 //
-        Vaccine vaccine = vaccineRepository.findByVaccineId(bookingCancelled.getVaccineId());
-        vaccine.setBookQty(vaccine.getBookQty()-1);
-        vaccineRepository.save(vaccine);
+        Optional<Vaccine> vaccine = vaccineRepository.findById(bookingCancelled.getVaccineId());
+        if(vaccine.isPresent()){
+            Vaccine vaccineValue = vaccine.get();
+            vaccineValue.setBookQty(vaccineValue.getBookQty()-1);
+            vaccineRepository.save(vaccineValue);
+        }
+        
     }
     @StreamListener(KafkaProcessor.INPUT)
     public void wheneverCompleted_ModifyStock(@Payload Completed completed){
