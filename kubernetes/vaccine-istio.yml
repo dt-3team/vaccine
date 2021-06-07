@@ -10,4 +10,4 @@
     - route:
       - destination:
           host: vaccine
-      timeout: 1s
+      timeout: 3s
