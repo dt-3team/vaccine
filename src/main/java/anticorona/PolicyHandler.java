@@ -39,10 +39,13 @@ public class PolicyHandler{
         System.out.println("\n\n##### listener ModifyStock : " + completed.toJson() + "\n\n");
 
         // 재고수량 & 예약수량 감소 //
-        Vaccine vaccine = vaccineRepository.findByVaccineId(completed.getVaccineId());
-        vaccine.setStock(vaccine.getStock()-1);
-        vaccine.setBookQty(vaccine.getBookQty()-1);
-        vaccineRepository.save(vaccine);
+        Optional<Vaccine> vaccine = vaccineRepository.findById(completed.getVaccineId());
+        if(vaccine.isPresent()){
+            Vaccine vaccineValue = vaccine.get();
+            vaccine.setStock(vaccineValue.getStock()-1);
+            vaccine.setBookQty(vaccineValue.getBookQty()-1);
+            vaccineRepository.save(vaccivaccineValuene);
+        }
     }
 
 
