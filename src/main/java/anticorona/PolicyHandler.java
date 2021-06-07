@@ -42,9 +42,9 @@ public class PolicyHandler{
         Optional<Vaccine> vaccine = vaccineRepository.findById(completed.getVaccineId());
         if(vaccine.isPresent()){
             Vaccine vaccineValue = vaccine.get();
-            vaccine.setStock(vaccineValue.getStock()-1);
-            vaccine.setBookQty(vaccineValue.getBookQty()-1);
-            vaccineRepository.save(vaccivaccineValuene);
+            vaccineValue.setStock(vaccineValue.getStock()-1);
+            vaccineValue.setBookQty(vaccineValue.getBookQty()-1);
+            vaccineRepository.save(vaccineValue);
         }
     }
 
